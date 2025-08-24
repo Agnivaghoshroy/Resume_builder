@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume Builder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+            <div class="progress-text" id="progressText">0% Complete</div>
+        </div>
+
+        <header>
+            <h1><i class="fas fa-file-alt"></i> Interactive Resume Builder</h1>
+            <p>Create your professional resume in real-time</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Form Section -->
+            <div class="form-section">
+                <form id="resumeForm" autocomplete="off"
+                    onreset="return false;"
+                    onsubmit="return false;">
+                    <!-- Personal Information -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-user"></i> Personal Information</h2>
+                        <div class="input-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" autocomplete="off" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" autocomplete="off" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" autocomplete="off" required>
+                        </div>
+                        <div class="input-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" name="location" autocomplete="off" placeholder="City, State">
+                        </div>
+                        <div class="input-group">
+                            <label for="website">Website/Portfolio</label>
+                            <input type="url" id="website" name="website" autocomplete="off" placeholder="https://your-website.com">
+                        </div>
+                    </div>
+
+                    <!-- Profile Summary -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-quote-left"></i> Profile Summary</h2>
+                        <div class="input-group">
+                            <label for="summary">Professional Summary *</label>
+                            <textarea id="summary" name="summary" rows="4" autocomplete="off" placeholder="Write a brief professional summary..." required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-cogs"></i> Skills</h2>
+                        <div class="input-group">
+                            <label for="skillInput">Add Skills</label>
+                            <div class="skill-input-container">
+                                <input type="text" id="skillInput" autocomplete="off" placeholder="Type a skill and press Enter">
+                                <button type="button" id="addSkillBtn" class="add-btn">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="skills-container" id="skillsContainer"></div>
+                        </div>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+                        <div id="educationContainer">
+                            <div class="education-entry">
+                                <div class="input-row">
+                                    <div class="input-group">
+                                        <label>Degree</label>
+                                        <input type="text" name="degree" placeholder="e.g., Bachelor of Science">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Institution</label>
+                                        <input type="text" name="institution" placeholder="University/College name">
+                                    </div>
+                                </div>
+                                <div class="input-row">
+                                    <div class="input-group">
+                                        <label>Start Year</label>
+                                        <input type="number" name="startYear" min="1950" max="2030">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>End Year</label>
+                                        <input type="number" name="endYear" min="1950" max="2030">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>GPA (Optional)</label>
+                                        <input type="text" name="gpa" placeholder="3.8/4.0">
+                                    </div>
+                                </div>
+                                <button type="button" class="remove-btn" onclick="removeEducation(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" id="addEducationBtn" class="add-section-btn">
+                            <i class="fas fa-plus"></i> Add Education
+                        </button>
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="form-group">
+                        <h2><i class="fas fa-briefcase"></i> Experience</h2>
+                        <div id="experienceContainer">
+                            <div class="experience-entry">
+                                <div class="input-row">
+                                    <div class="input-group">
+                                        <label>Job Title</label>
+                                        <input type="text" name="jobTitle" placeholder="e.g., Software Developer">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Company</label>
+                                        <input type="text" name="company" placeholder="Company name">
+                                    </div>
+                                </div>
+                                <div class="input-row">
+                                    <div class="input-group">
+                                        <label>Start Date</label>
+                                        <input type="month" name="startDate">
+                                    </div>
+                                    <div class="input-group">
+                                        <label>End Date</label>
+                                        <input type="month" name="endDate">
+                                    </div>
+                                    <div class="input-group checkbox-group">
+                                        <label>
+                                            <input type="checkbox" name="currentJob"> Currently working here
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="input-group">
+                                    <label>Description</label>
+                                    <textarea name="jobDescription" rows="3" placeholder="Describe your responsibilities and achievements..."></textarea>
+                                </div>
+                                <button type="button" class="remove-btn" onclick="removeExperience(this)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="button" id="addExperienceBtn" class="add-section-btn">
+                            <i class="fas fa-plus"></i> Add Experience
+                        </button>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" id="clearFormBtn" class="clear-btn">
+                            <i class="fas fa-eraser"></i> Clear Form
+                        </button>
+                        <button type="button" id="downloadBtn" class="download-btn">
+                            <i class="fas fa-download"></i> Download PDF
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Resume Preview Section -->
+            <div class="preview-section">
+                <div class="preview-header">
+                    <h2><i class="fas fa-eye"></i> Live Preview</h2>
+                    <div class="preview-controls">
+                        <button type="button" id="togglePreview" class="toggle-btn">
+                            <i class="fas fa-eye-slash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="resume-preview" id="resumePreview">
+                    <div class="resume-header">
+                        <h1 id="previewName" class="fade-in">Your Name</h1>
+                        <div class="contact-info">
+                            <div id="previewEmail" class="contact-item"></div>
+                            <div id="previewPhone" class="contact-item"></div>
+                            <div id="previewLocation" class="contact-item"></div>
+                            <div id="previewWebsite" class="contact-item"></div>
+                        </div>
+                    </div>
+
+                    <div class="resume-content">
+                        <div class="resume-section" id="summarySection" style="display: none;">
+                            <h3><i class="fas fa-quote-left"></i> Professional Summary</h3>
+                            <p id="previewSummary"></p>
+                        </div>
+
+                        <div class="resume-section" id="skillsSection" style="display: none;">
+                            <h3><i class="fas fa-cogs"></i> Skills</h3>
+                            <div class="skills-list" id="previewSkills"></div>
+                        </div>
+
+                        <div class="resume-section" id="experienceSection" style="display: none;">
+                            <h3><i class="fas fa-briefcase"></i> Experience</h3>
+                            <div id="previewExperience"></div>
+                        </div>
+
+                        <div class="resume-section" id="educationSection" style="display: none;">
+                            <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+                            <div id="previewEducation"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>Generating PDF...</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
